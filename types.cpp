@@ -127,6 +127,23 @@ constexpr Square bsf(Bitboard b) {
 	return Square(DEBRUIJN64[MAGIC * (b ^ (b - 1)) >> 58]);
 }
 
+//Dream
+inline Square highest_bit(Bitboard *b) {
+	Bitboard x = *b;
+
+	int n = 63;
+	if (x == 0) return NO_SQUARE;
+	if ((x >> 32) == 0) { n = n - 32; x = x << 32; }
+	if ((x >> 48) == 0) { n = n - 16; x = x << 16; }
+	if ((x >> 56) == 0) { n = n - 8; x = x << 8; }
+	if ((x >> 60) == 0) { n = n - 4; x = x << 4; }
+	if ((x >> 62) == 0) { n = n - 2; x = x << 2; }
+	if ((x >> 63) == 0) { n = n - 1; }
+
+	*b = *b ^ ((long long)1<<n);
+	return (Square)n;
+}
+
 //Returns the representation of the move type in algebraic chess notation. (capture) is used for debugging
 const char* MOVE_TYPESTR[16] = {
 	"", "", " O-O", " O-O-O", "N", "B", "R", "Q", " (capture)", "", " e.p.", "",

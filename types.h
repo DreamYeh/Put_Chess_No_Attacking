@@ -104,6 +104,7 @@ extern const Bitboard kf;
 extern inline int pop_count(Bitboard x);
 extern inline int sparse_pop_count(Bitboard x);
 extern inline Square pop_lsb(Bitboard* b);
+extern inline Square highest_bit(Bitboard* b);
 
 extern const int DEBRUIJN64[64];
 extern const Bitboard MAGIC;

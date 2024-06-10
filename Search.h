@@ -19,19 +19,48 @@ enum DPiece : unsigned int {
 class Search
 {
 private:
-	Piece board[NSQUARES];
-	//int Get_Lowest_1(Bitboard value);
+	Piece board[NSQUARES];	
+	bool Force_to_Finish;
+	long long time_temp;
+
+	Bitboard  Possible_Piece[32];
+
+	//64格是否有黑子、白子
+	Bitboard  Piece_All = 0, Piece_W = 0, Piece_B = 0;
+
+	//該格被攻擊
+	Bitboard  Piece_Attack_W = 0, Piece_Attack_B = 0;
+	Bitboard  Piece_Attack_W_init = 0, Piece_Attack_B_init = 0;
+	Bitboard  Attacked_by_Piece[32];
+	Bitboard  Attacked_by_BPawn[8];
+	//該子是否開局已經被放置
+	Square Init_Position[32];
+
+	//b d兵位置 判斷左主教合法用
+	Square WPawn_b = NO_SQUARE, WPawn_d = NO_SQUARE, WPawn_e = NO_SQUARE, WPawn_g = NO_SQUARE;
+	Square BPawn_b = NO_SQUARE, BPawn_d = NO_SQUARE, BPawn_e = NO_SQUARE, BPawn_g = NO_SQUARE;
+	Square WPawn_a = NO_SQUARE, WPawn_h = NO_SQUARE;
+	//長程攻擊子位置
+	Square Temp_Position_WQ = NO_SQUARE;
+	Square Temp_Position_WR1 = NO_SQUARE;
+	Square Temp_Position_WR2 = NO_SQUARE;
+	Square Temp_Position_BQ = NO_SQUARE;
+	Square Temp_Position_BR1 = NO_SQUARE;
+	Square Temp_Position_BR2 = NO_SQUARE;
+
+	void Put_White_Piece_Done();
+	Bitboard Put_Black_Piece_Done();
 public:
+	unsigned int num_Game = 0;
 	void Init_Search();
 	//void Init_Piece(DPiece dp, Square sq);
 	void Init_Piece(Square sq, DPiece dp);
 	void Draw_Board(void);
 	
-	void Get_Board(int get_board[]);
 	void Set_Piece(Square sq, Piece p, Color c);
 	void Remove_Piece(Square sq, Color c);	
-	int Check();
+	void SetParallel(Square setWPSQ, Square setBPSQ);
 
-	int Action(unsigned int p);
+	int Action(unsigned int p);	
 };
 

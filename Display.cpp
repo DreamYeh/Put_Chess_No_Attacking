@@ -18,7 +18,7 @@ void DisplayBoard(int board[])//int board[64];
 	hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	int text = 15;
 
-	int i;
+	int i = 0;
 	int x = 0;
 	int c;
 
@@ -137,8 +137,7 @@ void board_to_fen(int* board, char* fen)
 {
 	int sq;
 	int nempty = 0;	/* num. of successive empty squares on a rank */
-	int ep_sq;	/* enpassant square */
-	int fifty;	/* num. of successive reversible moves */
+
 	char piece_char[16] =
 	{
 		'P', 'N', 'B', 'R', 'Q', 'K', 0, 0,
