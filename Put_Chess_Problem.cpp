@@ -3,7 +3,9 @@
 #include "tables.h"
 #include "Position.h"
 #include "Search.h"
+#include <ctime>
 #include <iostream>
+
 void DisplayBoard(int board[]);
 
 int main()
@@ -13,17 +15,22 @@ int main()
 	zobrist::initialise_zobrist_keys();
 
 	Position p;
+
 	//print message===============================
 	char s[5];
-	printf("Dream Chess Engine \n");
-	printf("Version 1.1.4, 2024/05/29\n");
+	printf("Dream Chess Engine: \n");
+	printf("Version 1.1.4, 2024/05/31\n");
 	printf("Dream Yeh\n");
 
 	printf("(n)ew:RNBQKBNR\n");
 	printf("(d)isplay board\n");
 
 	printf("(m)ove lists\n");
-	printf("(1) num Board\n");
+	printf("(1)Run P1400086 6Pieces\n");
+	printf("(2)Run P1416657 5Pieces\n");
+	printf("(3)Run P1416658 4Pieces\n");
+	printf("(4)Run P1417094 3Pieces\n");
+	printf("(5)Run Dream's design\n");
 	printf("(p)lay This Game\n");
 	printf("(q)uit\n");
 	printf("\n");
@@ -50,29 +57,103 @@ int main()
 			p.get_Piece(board);
 			DisplayBoard(board);
 		}
-		else if (s[0] == '1') {
+		else if (s[0] == '1') {//six chess
+
 			Search search1;
 			int value;
+			clock_t start_t = 0, end_t = 0;
+			
+			start_t = clock();
+			//search1.Draw_Board();
 			search1.Init_Search();
-			search1.Init_Piece(BLACK_LEFT_ROOK, a8);
-			search1.Init_Piece(WHITE_LEFT_ROOK, b7);
-			search1.Init_Piece(WHITE__QUEEN, b6);
-			search1.Init_Piece(BLACK__QUEEN, e4);
-			search1.Init_Piece(BLACK_RIGHT_ROOK, h2);
-			search1.Init_Piece(BLACK__KING, h8);
-			search1.Set_Piece(a8, BLACK_ROOK, BLACK);			
-			search1.Set_Piece(b7, WHITE_ROOK, WHITE);
-			search1.Set_Piece(b6, WHITE_QUEEN, WHITE);
-			search1.Set_Piece(e4, BLACK_QUEEN, BLACK);
-			search1.Set_Piece(h2, BLACK_ROOK, BLACK);
-			search1.Set_Piece(h8, BLACK_KING, BLACK);
-			printf("init state\n");
+			search1.Init_Piece(a8, BLACK_LEFT_ROOK);
+			search1.Init_Piece(b7, WHITE_LEFT_ROOK);
+			search1.Init_Piece(b6, WHITE__QUEEN);
+			search1.Init_Piece(e4, BLACK__QUEEN);
+			search1.Init_Piece(h2, BLACK_RIGHT_ROOK);
+			search1.Init_Piece(h8, BLACK__KING);
+			printf("Analyze your board:");
 			search1.Draw_Board();// Get_Board(display_board);
 			///DisplayBoard(display_board);
 			value = search1.Action(0);
 			
 			printf("Search done. value = %d\n", value);
+			end_t = clock();
+			printf("Total time = %d sec.\n", (end_t - start_t) / CLOCKS_PER_SEC);
+		}
+		else if (s[0] == '2') {
+
+			Search search1;
+			int value;
+			clock_t start_t = 0, end_t = 0;
+
+			start_t = clock();
 			//search1.Draw_Board();
+			search1.Init_Search();
+			search1.Init_Piece(a5, WHITE_LEFT_ROOK);
+			search1.Init_Piece(a6, WHITE__KING);
+			search1.Init_Piece(d1, BLACK__QUEEN);
+			search1.Init_Piece(e8, WHITE_RIGHT_ROOK);
+			search1.Init_Piece(g6, WHITE__QUEEN);
+			search1.Set_Piece(a5, WHITE_ROOK, WHITE);
+			search1.Set_Piece(a6, WHITE_KING, WHITE);
+			search1.Set_Piece(d1, BLACK_QUEEN, BLACK);
+			search1.Set_Piece(e8, WHITE_ROOK, WHITE);
+			search1.Set_Piece(g6, WHITE_QUEEN, WHITE);
+
+			printf("Analyze your board:");
+			search1.Draw_Board();// Get_Board(display_board);
+			///DisplayBoard(display_board);
+			value = search1.Action(0);
+
+			printf("Search done. value = %d\n", value);
+			end_t = clock();
+			printf("Total time = %d sec.\n", (end_t - start_t) / CLOCKS_PER_SEC);
+		}
+		else if (s[0] == '4') {
+
+			Search search1;
+			int value;
+			clock_t start_t = 0, end_t = 0;
+
+			start_t = clock();
+			//search1.Draw_Board();
+			search1.Init_Search();
+			search1.Init_Piece(a8, WHITE_LEFT_ROOK);
+			search1.Init_Piece(b6, BLACK__KING);
+			search1.Init_Piece(f5, WHITE__QUEEN);
+
+
+			printf("Analyze your board:");
+			search1.Draw_Board();// Get_Board(display_board);
+			///DisplayBoard(display_board);
+			value = search1.Action(0);
+
+			printf("Search done. value = %d\n", value);
+			end_t = clock();
+			printf("Total time = %d sec.\n", (end_t - start_t) / CLOCKS_PER_SEC);
+		}
+		else if (s[0] == '5') {
+
+			Search search1;
+			int value;
+			clock_t start_t = 0, end_t = 0;
+
+			start_t = clock();
+			//search1.Draw_Board();
+			search1.Init_Search();
+			
+			search1.Init_Piece(d5, WHITE__QUEEN);
+			search1.Init_Piece(g4, BLACK__QUEEN);
+
+			printf("init state\n");
+			search1.Draw_Board();// Get_Board(display_board);
+			///DisplayBoard(display_board);
+			value = search1.Action(0);
+
+			printf("Search done. value = %d\n", value);
+			end_t = clock();
+			printf("Total time = %d sec.\n", (end_t - start_t) / CLOCKS_PER_SEC);
 		}
 	}
 

@@ -124,6 +124,51 @@ void DisplayBoard(int board[])//int board[64];
 			printf("\n%d ", 7 - j / 8);
 	}
 
-	printf("\n   a b c d e f g h\n\n");
+	printf("\n   a b c d e f g h\n");
 
+}
+
+enum Piece : unsigned int {
+	WHITE_PAWN, WHITE_KNIGHT, WHITE_BISHOP, WHITE_ROOK, WHITE_QUEEN, WHITE_KING,
+	BLACK_PAWN = 8, BLACK_KNIGHT, BLACK_BISHOP, BLACK_ROOK, BLACK_QUEEN, BLACK_KING,
+	NO_PIECE
+};
+void board_to_fen(int* board, char* fen)
+{
+	int sq;
+	int nempty = 0;	/* num. of successive empty squares on a rank */
+	int ep_sq;	/* enpassant square */
+	int fifty;	/* num. of successive reversible moves */
+	char piece_char[16] =
+	{
+		'P', 'N', 'B', 'R', 'Q', 'K', 0, 0,
+		'p', 'n', 'b', 'r', 'q', 'k', 0, 0
+	};
+
+
+	for (int y = 0; y < 8; y++) {
+		for (int x = 0; x < 8; x++) {
+			sq = (7 - y) * 8 + x;
+			/* Add a slash character between the ranks.  */
+			if (y > 0 && x == 0)
+				*fen++ = '/';
+			/* There's a piece on <sq>.  */
+			if (board[sq] != NO_PIECE) {
+				char pc = piece_char[board[sq]];
+
+				/* Add the num. of empty squares before <sq>.  */
+				if (nempty > 0) {
+					*fen++ = (char)('0' + nempty);
+					nempty = 0;
+				}
+				*fen++ = pc;
+			}
+			else if (((sq) & 7) == 7) {
+				*fen++ = (char)('0' + (nempty + 1));
+				nempty = 0;
+			}
+			else
+				nempty++;
+		}
+	}
 }
