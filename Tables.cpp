@@ -2,6 +2,7 @@
 #include "tables.h"
 
 #include <iostream>
+#include <cassert>
 //	Lookup tables for piece moves, magic bitboard creation using hyperbola quintessence
 
 //All piece tables are generated from a program written in Java

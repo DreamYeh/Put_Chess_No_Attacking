@@ -1,10 +1,15 @@
+V1.2 Release
+1.Check step: Rook, Queen , then Bishop.
+  So we can judge the oblique attack in advance.
+2.Piece game module
+3.Parallel operations by C++ OpenMP
+
+
 V1.1 Release Performance improvements
 1. To modify put setep for pieces. PpNKQRB ..
 2. Double bit output for Knight and Rook:
    Output two castle locations at once. Avoid duplication of situations and reduce stack loading.
    
-
-
 
 V1.0 Release
 1. Add full detemine for searching (BitBoard)
