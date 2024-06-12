@@ -1,22 +1,24 @@
-V1.2 Release
-1.Check step: Rook, Queen , then Bishop.
-  So we can judge the oblique attack in advance.
-2.Piece game module
-3.Parallel operations by C++ OpenMP
+V1.0 2024.06.01
+初期完成、版本定版
+
+---
+V1.0 2024.06.03
+1.修改落子順序，先下完白黑兵、白子、長程、黑子。效能大幅提昇
+2.雙bit位元輸出，針對雙騎雙城等對稱棋子、一次輸出兩個「可能點」bit，一來使局面不重複、二來增加效能（因為需重複考慮的局面也減少）
+
+--
+V1.2 2024.06.04
+1.修改落子順序，採用RQB順序，使得考慮皇后時、已經可以增加斜向長程攻擊
+2.
+
+第一命題目前在一秒內，第三命題
 
 
-V1.1 Release Performance improvements
-1. To modify put setep for pieces. PpNKQRB ..
-2. Double bit output for Knight and Rook:
-   Output two castle locations at once. Avoid duplication of situations and reduce stack loading.
-   
+--
+V1.3
+1.加入物件導向、使Search變成一個物件，讓記憶體分配更有邏輯。
+2.
 
-V1.0 Release
-1. Add full detemine for searching (BitBoard)
-2. Pawn King/Knight/Queen
-   Short-range attacks are judged immediately
-3. Put White Pieces as PKNQRB -> long attack judge
-   -> Other Black Pieces
 
 
 

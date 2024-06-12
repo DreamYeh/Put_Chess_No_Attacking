@@ -22,7 +22,7 @@ class Search
 {
 private:
 	Piece board[NSQUARES] = { NO_PIECE };
-	bool Force_to_Finish = false;
+	
 	long long time_temp;
 
 	Bitboard  Possible_Piece[32];
@@ -34,7 +34,7 @@ private:
 	Bitboard  Piece_Attack_W = 0, Piece_Attack_B = 0;
 	Bitboard  Piece_Attack_W_init = 0, Piece_Attack_B_init = 0;
 	Bitboard  Attacked_by_Piece[32];
-	Bitboard  Attacked_by_BPawn[8];
+
 	//該子是否開局已經被放置
 	Square Init_Position[32];
 
@@ -51,15 +51,15 @@ private:
 	Square Temp_Position_BR1 = NO_SQUARE;
 	Square Temp_Position_BR2 = NO_SQUARE;
 
-	void Put_White_Piece_Done();
+	Bitboard Put_White_Piece_Done();
 	Bitboard Put_Black_Piece_Done();
 
 	unsigned long long Num_Piece_Found[NO_SQUARE * NO_PIECE];
+	unsigned long long num_Game = 0;
+	int  Status_Search;
+public:	
+	Search();	
 
-public:
-	uint64_t num_Game = 0;
-	void Init_Search();
-	//void Init_Piece(DPiece dp, Square sq);
 	void Init_Piece(Square sq, DPiece dp);
 	void Draw_Board(void);
 	
@@ -67,9 +67,9 @@ public:
 	void Remove_Piece(Square sq, Color c);	
 	void SetParallel(Square setWPSQ, Square setBPSQ);
 
-	int Action(unsigned int p);	
+	int Active(int cmd);
+	int Run(unsigned int p);
 
 	void Print_Stat();
-	int Statistics(unsigned int p);
 };
 

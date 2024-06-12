@@ -11,8 +11,8 @@
 
 void SeParaSearch() {
 	int i;
-	//1.創造五個Search
-	Search *search = new Search[15];
+	Search* search[15];
+	
 	Square awP[15] = {a2, a2, a2, a2, a2,
 					 a3, a3, a3, a3,
 		             a4, a4, a4, a5, a5, a6};
@@ -23,13 +23,14 @@ void SeParaSearch() {
 
 	//初始化
 	for (i = 0; i < 15; i++) {
-		search[i].Init_Search();
+		search[i] = new Search();
+		//*search[i] = new Search()[];
 	}
 	//放置棋子
 	for (i = 0; i < 15; i++) {
-		search[i].Init_Piece(a8, WHITE_LEFT_ROOK);
-		search[i].Init_Piece(b6, BLACK__KING);
-		search[i].Init_Piece(f5, WHITE__QUEEN);
+		search[i]->Init_Piece(a8, WHITE_LEFT_ROOK);
+		search[i]->Init_Piece(b6, BLACK__KING);
+		search[i]->Init_Piece(f5, WHITE__QUEEN);
 		/*
 		search[i].Init_Piece(a8, BLACK_LEFT_ROOK);
 		search[i].Init_Piece(b7, WHITE_LEFT_ROOK);
@@ -39,15 +40,15 @@ void SeParaSearch() {
 		search[i].Init_Piece(h8, BLACK__KING);
 		*/
 
-		search[i].SetParallel(awP[i], abP[i]);
+		search[i]->SetParallel(awP[i], abP[i]);
 	}
 	time_t tt;
 	tt = time(NULL);
 	printf("Mulit-Analyze your board:");
-	search[0].Draw_Board();
+	search[0]->Draw_Board();
 #pragma omp parallel for
 	for (i = 0; i < 15; i++) {		
-		search[i].Action(0);
+		search[i]->Active(0);
 		printf("Done i=%d PawnA on %s\n", i, SQSTR[awP[i]]);
 	}
 	printf("Threads Search done. find %d solution\n", 7);
@@ -55,5 +56,9 @@ void SeParaSearch() {
 	time_t end_tt = time(NULL);
 	printf("Total time = %lld sec.\n", end_tt - tt);
 
-	delete[] search;
+	for (i = 0; i < 15; i++) {
+		delete[] search[i];
+		//*search[i] = new Search()[];
+	}
+	
 }
